@@ -11,11 +11,7 @@ import java.util.Date;
  * @author mayj
  */
 public class phoneCall extends javax.swing.JPanel {
-String who;
-String phone;
-Double tag;
-String problem;
-String notes;
+
     /**
      * Creates new form phoneCall
      */
@@ -173,8 +169,19 @@ String notes;
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
-        
+        phonecallTicket ticket = new phonecallTicket(tbWho.getText(),
+                                                     tbPhone.getText(), 
+                                                     tbCompTag.getText(),
+                                                     tbProblem.getText(), 
+                                                     tbNotes.getText() );
+      
         System.out.println(tbNotes.getText());
+        System.out.println(tbCompTag.getText());
+        System.out.println(tbPhone.getText());
+        System.out.println(tbProblem.getText());
+        System.out.println(tbWho.getText());
+               
+      //end button submit ACTION  
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

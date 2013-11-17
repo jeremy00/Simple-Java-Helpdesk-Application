@@ -8,12 +8,18 @@
  * @author mayj
  */
 public class phonecallTicket {
-    
 String who;
 String phone;
-Double tag;
+String tag;
 String problem;
 String notes;
 
-
-}
+    phonecallTicket(String who, String phone, String tag, String problem, String notes){
+    
+    who = this.who;
+    phone = this.phone;
+    tag = this.tag;
+    problem = this.problem;
+    notes = this.notes;
+    
+    }    }
