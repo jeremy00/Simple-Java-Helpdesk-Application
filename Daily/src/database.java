@@ -18,50 +18,57 @@ public class database {
     
     Connection con;
     Statement stmt;
-    
+    ResultSet rs;
+    ResultSet viewrs;
+    Statement viewstmt;
+    ArrayList tickets = new ArrayList();
+    phonecallTicket currentticket;
    database(){  
-       
-       try{
-           Class.forName("org.apache.derby.jdbc.ClientDriver");
-        }
-        catch (ClassNotFoundException e){
-            System.out.println("Class not found " + e);
-        }
-       
-  
-        
+
+//Load drives for database
+//Attempt connetion to database 
         try {
+             Class.forName("org.apache.derby.jdbc.ClientDriver");
              con = DriverManager.getConnection("jdbc:derby://localhost:1527/dial", "jeremy", "jeremy");
              stmt = con.createStatement();
-        
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-            
-          //ResultSet rs = stmt.executeQuery
-        // ("SELECT * FROM employee");
-      
+              
+            viewstmt = con.createStatement();
+            viewrs= viewstmt.executeQuery             
+         ("SELECT * FROM JEREMY.TICKET");
+            viewrs.next();
+       makeTicket(viewrs.getInt("ID"), viewrs.getString("NAME"),viewrs.getString("PHONE"),viewrs.getString("TAG"),viewrs.getString("PROBLEM"), viewrs.getString("NOTES"));
+            System.out.println("CONSTRUCTUOR: " + viewrs.getInt("ID"));
         } catch (Exception e) {
-            System.out.println("SQL problem " + e);
-        }
-   }// end of contructor
+            System.out.println("SQL constructor problem " + e);
+        } 
+        
+  }// end of contructor
    
    
-    ArrayList tickets = new ArrayList();
+    /*
+     Return number of total rows, PRINTS total rows also
+     */
     public int total(){
         int rows = 0;
+       
         try {
-            Statement stmt = con.createStatement();
-         ResultSet rs = stmt.executeQuery
+            stmt = con.createStatement();
+            rs = stmt.executeQuery             
          ("SELECT * FROM JEREMY.TICKET");
-         while (rs.next()) {
-          rows++;
-         }
-         System.out.println("There are "+ rows 
-         + " record in the table"); 
-        } catch (Exception e) {
-        }
+          while (rs.next()) {rows++;}
+         System.out.println("There are "+ rows + " record in the table"); 
+        
+        } catch (Exception e) {}
+    
     return rows;
       }
     
+    
+    /*
+     Add ticket to DB resem the ticket structure.
+     * It will aso return the total size with total method
+     */
     public void addTicket(phonecallTicket ticket){
         try {
             
@@ -72,20 +79,107 @@ public class database {
             System.out.println(insert);
             
           stmt.executeUpdate(insert);
-            ResultSet rs = stmt.executeQuery("SELECT * FROM JEREMY.TICKET");
+
+           rs = stmt.executeQuery("SELECT * FROM JEREMY.TICKET");
             total();
         } catch (Exception e) {
             System.out.println("SQL problem " + e);
         }
+       tickets.add(ticket);
+    }
+/*
+ 
+ Makes a ticket with an id number and returns it. That's it.
+ */
+    public phonecallTicket makeTicket(int id,  String who,  String phone,String tag, String problem, String notes){
         
-   // INSERT INTO JEREMY.TICKET VALUES (2,'jeer','9372255112','w056511','It s broke','Fix it please')
-    tickets.add(ticket);
+        phonecallTicket ticket = new phonecallTicket(id,  who,  phone, tag, problem, notes);
+    currentticket = ticket;
+        return ticket;
     }
     
+    
+    /*
+     moves to next record, puts new info in a new ticket obj.
+     */
+    public phonecallTicket nextTicket(phonecallTicket ticket){
+        
+         
+        try {
+            if(viewrs.isBeforeFirst())viewrs.next();
+            if(!viewrs.last() && !viewrs.isBeforeFirst()){
+        viewrs.next();
+        int id_col = viewrs.getInt("ID");
+        String first_name = viewrs.getString("NAME");
+        String phone = viewrs.getString("PHONE");
+        String tag = viewrs.getString("TAG");
+        String prob = viewrs.getString("PROBLEM");
+        String notes = viewrs.getString("NOTES");
+        
+       ticket = makeTicket(id_col, first_name, phone, tag, prob, notes);
+            }
+            } catch (Exception e) {System.out.println("SQL nextTicket() problem " + e);}
+    
+        return ticket;
+    
+    }
+    
+     public phonecallTicket previousTicket(phonecallTicket ticket){
+        
+        
+        try {
+            
+            if(!viewrs.isFirst()){
+        viewrs.previous();
+        int id_col = viewrs.getInt("ID");
+        String first_name = viewrs.getString("NAME");
+        String phone = viewrs.getString("PHONE");
+        String tag = viewrs.getString("TAG");
+        String prob = viewrs.getString("PROBLEM");
+        String notes = viewrs.getString("NOTES");
+        
+       ticket = makeTicket(id_col, first_name, phone, tag, prob, notes);
+            }
+        } catch (Exception e) {System.out.println("SQL nextTicket() problem " + e);}
+    
+        return ticket;
+    
+    }
+/*
+ A memory intensive search of the SQL data returned with an arraylist of ticket
+ * objects
+ @return A arraylist prepared from the complete set of data
+ */
+  public String displayAllTickets(){
+  String p = " ";
+   try {
+      d
+            rs = stmt.executeQuery             
+         ("SELECT * FROM JEREMY.TICKET");
+         while (rs.next()) {
+        int id_col = rs.getInt("ID");
+        String first_name = rs.getString("NAME");
+        String phone = rs.getString("PHONE");
+        String tag = rs.getString("TAG");
+        String prob = rs.getString("PROBLEM");
+        String notes = rs.getString("NOTES");
+        
+         p = p + (id_col + " " + first_name + " " + phone + " " + prob + "\n");        
+           // System.out.println(p);
+        }
+        } catch (Exception e) {
+            System.out.println("SQL problem " + e);
+        } 
+  return p;
+  
+  }
+
+
+
     public void removeTicket(int num){
     if (!tickets.isEmpty() && num < tickets.size() && num > 0){
        tickets.remove(num);
     }
     }//end removeTicket
     
-}
+    }
