@@ -1,3 +1,6 @@
+
+import java.util.ArrayList;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -8,20 +11,46 @@
  * @author mayj
  */
 public class viewTicket extends javax.swing.JPanel {
-
+database db = new database();
+phonecallTicket ticket;
     /**
      * Creates new form viewTicket
      */
     public viewTicket() {
         initComponents();
         changeWindow();
-    }
-    public void changeWindow(){
-    
+       
         
-
-    
+        jTextArea1.setText(db.displayAllTickets());
+       
+        //     ArrayList ticketList = new ArrayList();
+  //   ticketList = db.displayTicket();
+         
+//     phonecallTicket ticket = new phonecallTicket();
+//     for(int i = 0; i < ticketList.size(); i++){
+//         System.out.println(ticket.id);
+//         System.out.println(ticket.who);
+//         System.out.println(ticket.tag);
+//         System.out.println(ticket.phone);
+//         System.out.println(ticket.problem);
+//         System.out.println(ticket.notes);
+//        
+//     
+//     }
     }
+    
+    public void setInfo(phonecallTicket ticket){
+    textWho.setText(ticket.who);
+    textTag.setText(ticket.tag);
+    //textDate.setText(ticket);
+    textPhone.setText(ticket.phone);
+    textProblem.setText(ticket.phone);
+    textNotes.setText(ticket.notes);
+    }
+    http://www.homeandlearn.co.uk/java/database_scrolling_buttons.html
+    
+    public void changeWindow(){
+      }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,9 +62,167 @@ public class viewTicket extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        panelContainer = new javax.swing.JPanel();
+        btnPrevious = new javax.swing.JButton();
+        btnNext = new javax.swing.JButton();
+        panelINFO = new javax.swing.JPanel();
+        labelNotes = new javax.swing.JLabel();
+        labelProblem = new javax.swing.JLabel();
+        labelTime = new javax.swing.JLabel();
+        labelCompTag = new javax.swing.JLabel();
+        labelPhone = new javax.swing.JLabel();
+        labelWho = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        textWho = new javax.swing.JTextPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        textDate = new javax.swing.JTextPane();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        textTag = new javax.swing.JTextPane();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        textPhone = new javax.swing.JTextPane();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        textProblem = new javax.swing.JTextPane();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        textNotes = new javax.swing.JTextPane();
 
         jLabel1.setText("View Tickets");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        btnPrevious.setText("Previous");
+        btnPrevious.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPreviousActionPerformed(evt);
+            }
+        });
+
+        btnNext.setText("Next");
+        btnNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextActionPerformed(evt);
+            }
+        });
+
+        labelNotes.setText("Notes");
+
+        labelProblem.setText("Problem");
+
+        labelTime.setText("Date/Time");
+
+        labelCompTag.setText("Comp Tag #");
+
+        labelPhone.setText("Phone #");
+
+        labelWho.setText("Who");
+
+        jScrollPane2.setViewportView(textWho);
+
+        jScrollPane3.setViewportView(textDate);
+
+        jScrollPane4.setViewportView(textTag);
+
+        jScrollPane5.setViewportView(textPhone);
+
+        jScrollPane6.setViewportView(textProblem);
+
+        jScrollPane7.setViewportView(textNotes);
+
+        javax.swing.GroupLayout panelINFOLayout = new javax.swing.GroupLayout(panelINFO);
+        panelINFO.setLayout(panelINFOLayout);
+        panelINFOLayout.setHorizontalGroup(
+            panelINFOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelINFOLayout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addGroup(panelINFOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                    .addGroup(panelINFOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(jScrollPane6))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelINFOLayout.createSequentialGroup()
+                .addContainerGap(44, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
+            .addGroup(panelINFOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelINFOLayout.createSequentialGroup()
+                    .addGap(12, 12, 12)
+                    .addGroup(panelINFOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(labelProblem)
+                        .addComponent(labelTime)
+                        .addGroup(panelINFOLayout.createSequentialGroup()
+                            .addGap(159, 159, 159)
+                            .addComponent(labelNotes))
+                        .addGroup(panelINFOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelCompTag)
+                            .addComponent(labelPhone)
+                            .addComponent(labelWho)))
+                    .addContainerGap(179, Short.MAX_VALUE)))
+        );
+        panelINFOLayout.setVerticalGroup(
+            panelINFOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelINFOLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+            .addGroup(panelINFOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelINFOLayout.createSequentialGroup()
+                    .addGap(17, 17, 17)
+                    .addComponent(labelWho)
+                    .addGap(24, 24, 24)
+                    .addComponent(labelPhone)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(labelCompTag, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(labelTime, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(labelProblem, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(9, 9, 9)
+                    .addComponent(labelNotes, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(142, Short.MAX_VALUE)))
+        );
+
+        javax.swing.GroupLayout panelContainerLayout = new javax.swing.GroupLayout(panelContainer);
+        panelContainer.setLayout(panelContainerLayout);
+        panelContainerLayout.setHorizontalGroup(
+            panelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelContainerLayout.createSequentialGroup()
+                .addGroup(panelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelContainerLayout.createSequentialGroup()
+                        .addGap(383, 383, 383)
+                        .addComponent(btnPrevious)
+                        .addGap(61, 61, 61)
+                        .addComponent(btnNext))
+                    .addGroup(panelContainerLayout.createSequentialGroup()
+                        .addGap(293, 293, 293)
+                        .addComponent(panelINFO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(296, Short.MAX_VALUE))
+        );
+        panelContainerLayout.setVerticalGroup(
+            panelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelContainerLayout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addComponent(panelINFO, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPrevious)
+                    .addComponent(btnNext)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -44,25 +231,62 @@ public class viewTicket extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(jLabel1))
+                        .addGap(20, 20, 20)
+                        .addComponent(panelContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1066, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(54, Short.MAX_VALUE))
+                        .addGap(484, 484, 484)
+                        .addComponent(jLabel1)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(37, 37, 37)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
+        
+        setInfo(db.nextTicket(ticket));
+        
+    }//GEN-LAST:event_btnNextActionPerformed
+
+    private void btnPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousActionPerformed
+    setInfo(db.previousTicket(ticket));
+    }//GEN-LAST:event_btnPreviousActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnNext;
+    private javax.swing.JButton btnPrevious;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel labelCompTag;
+    private javax.swing.JLabel labelNotes;
+    private javax.swing.JLabel labelPhone;
+    private javax.swing.JLabel labelProblem;
+    private javax.swing.JLabel labelTime;
+    private javax.swing.JLabel labelWho;
+    private javax.swing.JPanel panelContainer;
+    private javax.swing.JPanel panelINFO;
+    private javax.swing.JTextPane textDate;
+    private javax.swing.JTextPane textNotes;
+    private javax.swing.JTextPane textPhone;
+    private javax.swing.JTextPane textProblem;
+    private javax.swing.JTextPane textTag;
+    private javax.swing.JTextPane textWho;
     // End of variables declaration//GEN-END:variables
 }
