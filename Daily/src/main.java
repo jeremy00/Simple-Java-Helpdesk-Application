@@ -4,8 +4,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+You need to create a database labeled dial.
+* After that I have a method in called from main that will create the necc.
+* tables that a person will need.
  */
 
 /**
@@ -17,6 +18,7 @@ public class main extends javax.swing.JFrame {
     /**
      * Creates new form main
      */
+ 
     public main() {
         initComponents();
     }  
@@ -32,7 +34,7 @@ public class main extends javax.swing.JFrame {
         buttonPhoneCall = new javax.swing.JButton();
         buttonInfo = new javax.swing.JButton();
         mainLogo = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        buttonViewTicket = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,10 +49,10 @@ public class main extends javax.swing.JFrame {
 
         mainLogo.setText("Helpdesk");
 
-        jToggleButton1.setText("View Ticket");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonViewTicket.setText("View Ticket");
+        buttonViewTicket.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                buttonViewTicketActionPerformed(evt);
             }
         });
 
@@ -71,7 +73,7 @@ public class main extends javax.swing.JFrame {
                         .addComponent(mainLogo))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(151, 151, 151)
-                        .addComponent(jToggleButton1)))
+                        .addComponent(buttonViewTicket)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -84,7 +86,7 @@ public class main extends javax.swing.JFrame {
                     .addComponent(buttonPhoneCall)
                     .addComponent(buttonInfo))
                 .addGap(44, 44, 44)
-                .addComponent(jToggleButton1)
+                .addComponent(buttonViewTicket)
                 .addContainerGap(129, Short.MAX_VALUE))
         );
 
@@ -92,7 +94,7 @@ public class main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonPhoneCallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPhoneCallActionPerformed
-        // TODO add your handling code here:
+         // TODO add your handling code here:
         buttonPhoneCall.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -107,9 +109,10 @@ public class main extends javax.swing.JFrame {
     });
     }//GEN-LAST:event_buttonPhoneCallActionPerformed
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+    private void buttonViewTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonViewTicketActionPerformed
+        
         // TODO add your handling code here:
-         buttonPhoneCall.addActionListener(new ActionListener() {
+         buttonViewTicket.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             JFrame frame = new JFrame ("MyPanel");
@@ -121,7 +124,7 @@ public class main extends javax.swing.JFrame {
         }
     });
         
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+    }//GEN-LAST:event_buttonViewTicketActionPerformed
 
     
     /**
@@ -164,9 +167,7 @@ public class main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonInfo;
     private javax.swing.JButton buttonPhoneCall;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton buttonViewTicket;
     private javax.swing.JLabel mainLogo;
     // End of variables declaration//GEN-END:variables
 }

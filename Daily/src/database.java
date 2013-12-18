@@ -18,7 +18,7 @@ public class database {
     
     Connection con;
     Statement stmt;
-    ResultSet rs;
+  ResultSet rs;
     ResultSet viewrs;
     Statement viewstmt;
     ArrayList tickets = new ArrayList();
@@ -33,11 +33,21 @@ public class database {
              stmt = con.createStatement();
             Class.forName("org.apache.derby.jdbc.ClientDriver");
               
-            viewstmt = con.createStatement();
-            viewrs= viewstmt.executeQuery             
+            this.viewstmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            this.viewrs= viewstmt.executeQuery             
          ("SELECT * FROM JEREMY.TICKET");
-            viewrs.next();
-       makeTicket(viewrs.getInt("ID"), viewrs.getString("NAME"),viewrs.getString("PHONE"),viewrs.getString("TAG"),viewrs.getString("PROBLEM"), viewrs.getString("NOTES"));
+          //  viewrs.next();
+           this.viewrs.beforeFirst();
+            //  viewrs.next();
+            System.out.println("first? " + this.viewrs.isFirst());
+            System.out.println("last? " + this.viewrs.isLast());
+            this.viewrs.next();
+            
+           
+       currentticket =makeTicket(viewrs.getInt("ID"), viewrs.getString("NAME"),
+                                 viewrs.getString("PHONE"),viewrs.getString("TAG"), 
+                                 viewrs.getString("DATE"), viewrs.getString("PROBLEM"),
+                                 viewrs.getString("NOTES"));
             System.out.println("CONSTRUCTUOR: " + viewrs.getInt("ID"));
         } catch (Exception e) {
             System.out.println("SQL constructor problem " + e);
@@ -45,7 +55,10 @@ public class database {
         
   }// end of contructor
    
-   
+   public phonecallTicket getTicket(){
+   return currentticket;
+   }
+ 
     /*
      Return number of total rows, PRINTS total rows also
      */
@@ -74,7 +87,13 @@ public class database {
             
             
             String insert ="INSERT INTO JEREMY.TICKET VALUES "
-                + "(" + (total() +1) +",'"+ticket.who+"','"+ticket.phone+"','"+ticket.tag+"','"+ticket.problem+"','"+ticket.notes+"')";
+                + "(" + (total() +1) +",'"
+                    +ticket.who+"','"
+                    +ticket.phone+"','"
+                    +ticket.tag+"',' "
+                    +ticket.date+"',' "
+                    +ticket.problem+"',' "
+                    +ticket.notes+"')";
            
             System.out.println(insert);
             
@@ -91,12 +110,17 @@ public class database {
  
  Makes a ticket with an id number and returns it. That's it.
  */
-    public phonecallTicket makeTicket(int id,  String who,  String phone,String tag, String problem, String notes){
+    public phonecallTicket makeTicket(int id,  String who,  String phone,String tag, String date,String problem, String notes){
         
-        phonecallTicket ticket = new phonecallTicket(id,  who,  phone, tag, problem, notes);
+        phonecallTicket ticket = new phonecallTicket(id,  who,  phone, tag, date, problem, notes);
     currentticket = ticket;
         return ticket;
     }
+    
+//    public phonecallTicket getCurrentTicket(){
+//    
+//    
+//    }
     
     
     /*
@@ -104,21 +128,21 @@ public class database {
      */
     public phonecallTicket nextTicket(phonecallTicket ticket){
         
-         
         try {
-            if(viewrs.isBeforeFirst())viewrs.next();
-            if(!viewrs.last() && !viewrs.isBeforeFirst()){
+           
+            if(!viewrs.isLast()){
         viewrs.next();
         int id_col = viewrs.getInt("ID");
         String first_name = viewrs.getString("NAME");
         String phone = viewrs.getString("PHONE");
         String tag = viewrs.getString("TAG");
+        String date = viewrs.getString("DATE");
         String prob = viewrs.getString("PROBLEM");
         String notes = viewrs.getString("NOTES");
-        
-       ticket = makeTicket(id_col, first_name, phone, tag, prob, notes);
-            }
-            } catch (Exception e) {System.out.println("SQL nextTicket() problem " + e);}
+              
+       ticket = makeTicket(id_col, first_name, phone, tag, date, prob, notes);
+       }
+        } catch (Exception e) {System.out.println("SQL nextTicket() problem " + e);}
     
         return ticket;
     
@@ -135,10 +159,11 @@ public class database {
         String first_name = viewrs.getString("NAME");
         String phone = viewrs.getString("PHONE");
         String tag = viewrs.getString("TAG");
+         String date = viewrs.getString("DATE");
         String prob = viewrs.getString("PROBLEM");
         String notes = viewrs.getString("NOTES");
         
-       ticket = makeTicket(id_col, first_name, phone, tag, prob, notes);
+       ticket = makeTicket(id_col, first_name, phone, tag, date, prob, notes);
             }
         } catch (Exception e) {System.out.println("SQL nextTicket() problem " + e);}
     
@@ -153,7 +178,7 @@ public class database {
   public String displayAllTickets(){
   String p = " ";
    try {
-      d
+      
             rs = stmt.executeQuery             
          ("SELECT * FROM JEREMY.TICKET");
          while (rs.next()) {

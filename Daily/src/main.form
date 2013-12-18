@@ -38,7 +38,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="151" max="-2" attributes="0"/>
-                      <Component id="jToggleButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonViewTicket" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -56,7 +56,7 @@
                   <Component id="buttonInfo" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-              <Component id="jToggleButton1" min="-2" max="-2" attributes="0"/>
+              <Component id="buttonViewTicket" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="129" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -81,12 +81,12 @@
         <Property name="text" type="java.lang.String" value="Helpdesk"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="jToggleButton1">
+    <Component class="javax.swing.JToggleButton" name="buttonViewTicket">
       <Properties>
         <Property name="text" type="java.lang.String" value="View Ticket"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonViewTicketActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

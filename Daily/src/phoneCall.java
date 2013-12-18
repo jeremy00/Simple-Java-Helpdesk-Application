@@ -33,7 +33,12 @@ public class phoneCall extends javax.swing.JPanel {
         //Just time
       return hi.toString().substring(11, 19);
     }
-
+     
+        public void dbAddTicket(){
+        
+        }
+        
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,6 +62,7 @@ public class phoneCall extends javax.swing.JPanel {
         labelNotes = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         btnSubmit = new javax.swing.JButton();
+        btnRows = new javax.swing.JButton();
 
         labelWho.setText("Who");
 
@@ -82,6 +88,13 @@ public class phoneCall extends javax.swing.JPanel {
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubmitActionPerformed(evt);
+            }
+        });
+
+        btnRows.setText("Row?");
+        btnRows.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRowsActionPerformed(evt);
             }
         });
 
@@ -126,6 +139,8 @@ public class phoneCall extends javax.swing.JPanel {
                 .addGap(81, 91, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnRows)
+                .addGap(65, 65, 65)
                 .addComponent(btnSubmit)
                 .addGap(152, 152, 152))
         );
@@ -158,7 +173,9 @@ public class phoneCall extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tbNotes, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-                .addComponent(btnSubmit)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSubmit)
+                    .addComponent(btnRows))
                 .addGap(21, 21, 21))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -172,9 +189,11 @@ public class phoneCall extends javax.swing.JPanel {
         phonecallTicket ticket = new phonecallTicket(tbWho.getText(),
                                                      tbPhone.getText(), 
                                                      tbCompTag.getText(),
+                                                     getDateShort(),
                                                      tbProblem.getText(), 
                                                      tbNotes.getText() );
-      
+      database db = new database();
+      db.addTicket(ticket);
         System.out.println(tbNotes.getText());
         System.out.println(tbCompTag.getText());
         System.out.println(tbPhone.getText());
@@ -184,7 +203,16 @@ public class phoneCall extends javax.swing.JPanel {
       //end button submit ACTION  
     }//GEN-LAST:event_btnSubmitActionPerformed
 
+    private void btnRowsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRowsActionPerformed
+        // TODO add your handling code here:
+            // TODO add your handling code here:
+      database db = new database();
+      System.out.println("There are " + db.total() + " record(s)"); 
+           
+    }//GEN-LAST:event_btnRowsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRows;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
