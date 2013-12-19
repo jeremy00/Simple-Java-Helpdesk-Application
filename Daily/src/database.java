@@ -21,34 +21,42 @@ public class database {
   ResultSet rs;
     ResultSet viewrs;
     Statement viewstmt;
+    ResultSet rowrs;
+    Statement rowstmt;
     ArrayList tickets = new ArrayList();
     phonecallTicket currentticket;
    database(){  
 
-//Load drives for database
-//Attempt connetion to database 
-        try {
+         try {
+            
+  //Attempt connection to the database
              Class.forName("org.apache.derby.jdbc.ClientDriver");
              con = DriverManager.getConnection("jdbc:derby://localhost:1527/dial", "jeremy", "jeremy");
              stmt = con.createStatement();
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-              
+
+  //set put the view Result Set to be the first record in set          
             this.viewstmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             this.viewrs= viewstmt.executeQuery             
-         ("SELECT * FROM JEREMY.TICKET");
-          //  viewrs.next();
+         ("SELECT * FROM JEREMY.TICKET");  
            this.viewrs.beforeFirst();
-            //  viewrs.next();
-            System.out.println("first? " + this.viewrs.isFirst());
-            System.out.println("last? " + this.viewrs.isLast());
-            this.viewrs.next();
-            
+           this.viewrs.next();
+ 
+//Set up the row Result Set to be able to go to any row you want
+           this.rowstmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            this.rowrs= rowstmt.executeQuery             
+         ("SELECT * FROM JEREMY.TICKET");  
+           this.rowrs.beforeFirst();
+           this.rowrs.next();
+ 
            
+           
+  //set up the first default ticket ticket for view Result Set         
        currentticket =makeTicket(viewrs.getInt("ID"), viewrs.getString("NAME"),
                                  viewrs.getString("PHONE"),viewrs.getString("TAG"), 
                                  viewrs.getString("DATE"), viewrs.getString("PROBLEM"),
                                  viewrs.getString("NOTES"));
-            System.out.println("CONSTRUCTUOR: " + viewrs.getInt("ID"));
+
         } catch (Exception e) {
             System.out.println("SQL constructor problem " + e);
         } 
@@ -59,6 +67,26 @@ public class database {
    return currentticket;
    }
  
+   public phonecallTicket getRow(int row){
+       System.out.println("ROW IS!!! " + row );
+       try{
+       if(row > total() || row < 0)
+           System.out.println("invalid row");
+   else {rowrs.absolute(row);
+        int id_col = rowrs.getInt("ID");
+        String first_name = rowrs.getString("NAME");
+        String phone = rowrs.getString("PHONE");
+        String tag = rowrs.getString("TAG");
+        String date = rowrs.getString("DATE");
+        String prob = rowrs.getString("PROBLEM");
+        String notes = rowrs.getString("NOTES");
+              
+       currentticket = makeTicket(id_col, first_name, phone, tag, date, prob, notes);
+       }//else
+   } catch (Exception e){
+       System.out.println("SQL problem at getRow()");}
+   return currentticket;
+   }
     /*
      Return number of total rows, PRINTS total rows also
      */

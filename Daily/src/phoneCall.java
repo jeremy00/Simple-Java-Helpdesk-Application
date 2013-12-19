@@ -189,7 +189,7 @@ public class phoneCall extends javax.swing.JPanel {
         phonecallTicket ticket = new phonecallTicket(tbWho.getText(),
                                                      tbPhone.getText(), 
                                                      tbCompTag.getText(),
-                                                     getDateShort(),
+                                                     getDateLong(),
                                                      tbProblem.getText(), 
                                                      tbNotes.getText() );
       database db = new database();
@@ -199,7 +199,7 @@ public class phoneCall extends javax.swing.JPanel {
         System.out.println(tbPhone.getText());
         System.out.println(tbProblem.getText());
         System.out.println(tbWho.getText());
-               
+           
       //end button submit ACTION  
     }//GEN-LAST:event_btnSubmitActionPerformed
 

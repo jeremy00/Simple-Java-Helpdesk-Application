@@ -1,5 +1,5 @@
 
-import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /*
  * To change this template, choose Tools | Templates
@@ -23,34 +23,20 @@ phonecallTicket ticket;
         
         jTextArea1.setText(db.displayAllTickets());
        ticket = db.getTicket();
-        setInfo(db.getTicket());
-        //     ArrayList ticketList = new ArrayList();
-  //   ticketList = db.displayTicket();
-         
-//     phonecallTicket ticket = new phonecallTicket();
-//     for(int i = 0; i < ticketList.size(); i++){
-//         System.out.println(ticket.id);
-//         System.out.println(ticket.who);
-//         System.out.println(ticket.tag);
-//         System.out.println(ticket.phone);
-//         System.out.println(ticket.problem);
-//         System.out.println(ticket.notes);
-//        
-//     
-//     }
+        setInfo(db.getTicket());    
     }
     
     public void setInfo(phonecallTicket dticket){
    
-        
+         this.ticket = dticket;
     textID.setText(Integer.toString(ticket.id));
-    textWho.setText(dticket.who);
-    textTag.setText(dticket.tag);
-    textDate.setText(dticket.date);
-    textPhone.setText(dticket.phone);
-    textProblem.setText(dticket.problem);
-    textNotes.setText(dticket.notes);
-    this.ticket = dticket;
+    textWho.setText(ticket.who);
+    textTag.setText(ticket.tag);
+    textDate.setText(ticket.date);
+    textPhone.setText(ticket.phone);
+    textProblem.setText(ticket.problem);
+    textNotes.setText(ticket.notes);
+   
     }
     //http//www.homeandlearn.co.uk/java/database_scrolling_buttons.html
     
@@ -94,7 +80,8 @@ phonecallTicket ticket;
         labelID = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         textWho = new javax.swing.JTextPane();
-        jButton1 = new javax.swing.JButton();
+        btnRow = new javax.swing.JButton();
+        textRow = new javax.swing.JTextField();
 
         jLabel1.setText("View Tickets");
 
@@ -144,12 +131,14 @@ phonecallTicket ticket;
 
         jScrollPane8.setViewportView(textWho);
 
-        jButton1.setText("row");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnRow.setText("ROW");
+        btnRow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnRowActionPerformed(evt);
             }
         });
+
+        textRow.setText("10");
 
         javax.swing.GroupLayout panelINFOLayout = new javax.swing.GroupLayout(panelINFO);
         panelINFO.setLayout(panelINFOLayout);
@@ -186,14 +175,16 @@ phonecallTicket ticket;
                             .addComponent(jScrollPane5)
                             .addComponent(jScrollPane6)
                             .addComponent(jScrollPane2)
-                            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)))
                     .addGroup(panelINFOLayout.createSequentialGroup()
                         .addGap(167, 167, 167)
-                        .addComponent(labelNotes)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
-                .addContainerGap())
+                        .addComponent(labelNotes))
+                    .addGroup(panelINFOLayout.createSequentialGroup()
+                        .addGap(104, 104, 104)
+                        .addComponent(btnRow)
+                        .addGap(49, 49, 49)
+                        .addComponent(textRow, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelINFOLayout.setVerticalGroup(
             panelINFOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,15 +217,16 @@ phonecallTicket ticket;
                                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(labelProblem, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(panelINFOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(labelNotes, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton1))
+                                .addComponent(labelNotes, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26))
+                                .addGap(3, 3, 3)
+                                .addGroup(panelINFOLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnRow)
+                                    .addComponent(textRow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(panelINFOLayout.createSequentialGroup()
                                 .addComponent(labelTime, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addContainerGap())))
                     .addGroup(panelINFOLayout.createSequentialGroup()
                         .addComponent(labelCompTag, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -252,7 +244,7 @@ phonecallTicket ticket;
                         .addGap(61, 61, 61)
                         .addComponent(btnNext))
                     .addGroup(panelContainerLayout.createSequentialGroup()
-                        .addGap(293, 293, 293)
+                        .addGap(316, 316, 316)
                         .addComponent(panelINFO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(296, Short.MAX_VALUE))
         );
@@ -289,30 +281,35 @@ phonecallTicket ticket;
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        
         setInfo(db.nextTicket(ticket));
-       
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void btnPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousActionPerformed
     setInfo(db.previousTicket(ticket));
     }//GEN-LAST:event_btnPreviousActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRowActionPerformed
+        String s = textRow.getText();
+        int num = Integer.parseInt(s);
+       if(num > db.total() || num < 1)
+       {  System.out.println("invalid row");
+       JOptionPane.showMessageDialog(null,
+    "Invalid row. Must be between 1 and " + db.total());
+               }
+       else setInfo(db.getRow(num));
+    }//GEN-LAST:event_btnRowActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNext;
     private javax.swing.JButton btnPrevious;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnRow;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -337,6 +334,7 @@ phonecallTicket ticket;
     private javax.swing.JTextPane textNotes;
     private javax.swing.JTextPane textPhone;
     private javax.swing.JTextPane textProblem;
+    private javax.swing.JTextField textRow;
     private javax.swing.JTextPane textTag;
     private javax.swing.JTextPane textWho;
     // End of variables declaration//GEN-END:variables
