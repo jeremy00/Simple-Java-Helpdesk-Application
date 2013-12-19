@@ -19,6 +19,6 @@ I personally use Netbeans.. I have not tried it on anything else.
 
 Download the zip/Fork the project/whatever you want.
 
-Build a database named Jeremy with the rows that are in the program.
+There is a database called TICKETS.grab. Use that file for the database creation.
 
 Run the file
