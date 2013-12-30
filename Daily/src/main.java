@@ -45,6 +45,7 @@ JFrame pframe = new JFrame ("Phone Call");
         buttonInfo = new javax.swing.JButton();
         mainLogo = new javax.swing.JLabel();
         buttonViewTicket = new javax.swing.JToggleButton();
+        btnAdmin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,16 +67,12 @@ JFrame pframe = new JFrame ("Phone Call");
             }
         });
 
+        btnAdmin.setText("ADMIN");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(buttonPhoneCall)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
-                .addComponent(buttonInfo)
-                .addGap(77, 77, 77))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -83,8 +80,16 @@ JFrame pframe = new JFrame ("Phone Call");
                         .addComponent(mainLogo))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(151, 151, 151)
-                        .addComponent(buttonViewTicket)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAdmin)
+                            .addComponent(buttonViewTicket))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(buttonPhoneCall)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                .addComponent(buttonInfo)
+                .addGap(77, 77, 77))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,7 +102,9 @@ JFrame pframe = new JFrame ("Phone Call");
                     .addComponent(buttonInfo))
                 .addGap(44, 44, 44)
                 .addComponent(buttonViewTicket)
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addComponent(btnAdmin)
+                .addGap(30, 30, 30))
         );
 
         pack();
@@ -169,6 +176,7 @@ JFrame pframe = new JFrame ("Phone Call");
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdmin;
     private javax.swing.JButton buttonInfo;
     private javax.swing.JButton buttonPhoneCall;
     private javax.swing.JToggleButton buttonViewTicket;
