@@ -203,13 +203,38 @@ public class database {
  * objects
  @return A arraylist prepared from the complete set of data
  */
-  public String displayAllTickets(){
+   public String displayAllTickets(){
   String p = " ";
    try {
       
             rs = stmt.executeQuery             
          ("SELECT * FROM JEREMY.TICKET");
-         while (rs.next()) {
+          p = loopDBInfo(rs);
+        } catch (Exception e) {
+            System.out.println("SQL problem " + e);
+        } 
+  return p;
+  
+  }
+  public String displayNameTickets(){
+  String p = " ";
+   try {
+      
+            rs = stmt.executeQuery             
+         ("select * from JEREMY.TICKET ORDER BY NAME");
+      p = loopDBInfo(rs);
+        
+        } catch (Exception e) {
+            System.out.println("SQL problem " + e);
+        } 
+  return p;
+  
+  }//end displayNameTickets
+  
+  public String loopDBInfo(ResultSet rs){
+      String p = "";
+      try{
+      while (rs.next()) {
         int id_col = rs.getInt("ID");
         String first_name = rs.getString("NAME");
         String phone = rs.getString("PHONE");
@@ -220,13 +245,11 @@ public class database {
          p = p + (id_col + " " + first_name + " " + phone + " " + prob + "\n");        
            // System.out.println(p);
         }
-        } catch (Exception e) {
+      } catch (Exception e) {
             System.out.println("SQL problem " + e);
-        } 
-  return p;
-  
-  }
-
+ 
+  } return p;
+  }//end loopDBInfo
 
 
     public void removeTicket(int num){

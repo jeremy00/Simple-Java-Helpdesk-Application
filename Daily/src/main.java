@@ -18,9 +18,19 @@ public class main extends javax.swing.JFrame {
     /**
      * Creates new form main
      */
- 
+JFrame pframe = new JFrame ("Phone Call");
+   JFrame vframe = new JFrame ("View Tickets");
     public main() {
-        initComponents();
+       
+         
+            pframe.setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);
+            pframe.getContentPane().add (new phoneCall());
+            pframe.pack();
+              
+            vframe.setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);
+            vframe.getContentPane().add (new viewTicket());
+            vframe.pack();
+             initComponents();
     }  
     /**
      * This method is called from within the constructor to initialize the form.
@@ -99,11 +109,8 @@ public class main extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
      
-            JFrame frame = new JFrame ("MyPanel");
-            frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-            frame.getContentPane().add (new phoneCall());
-            frame.pack();
-            frame.setVisible (true);
+          
+            pframe.setVisible (true);
 
         }
     });
@@ -115,11 +122,8 @@ public class main extends javax.swing.JFrame {
          buttonViewTicket.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            JFrame frame = new JFrame ("MyPanel");
-            frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-            frame.getContentPane().add (new viewTicket());
-            frame.pack();
-            frame.setVisible (true);
+          
+            vframe.setVisible (true);
             
         }
     });
