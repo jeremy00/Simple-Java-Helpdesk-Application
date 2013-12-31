@@ -1,3 +1,6 @@
+
+import javax.swing.JFrame;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -8,11 +11,16 @@
  * @author mayj
  */
 public class admin extends javax.swing.JPanel {
-
+ JFrame eframe = new JFrame ("Admin Console");
     /**
      * Creates new form admin
      */
     public admin() {
+               
+            eframe.setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);
+            eframe.getContentPane().add (new pnlEmployee());
+            eframe.pack();
+            
         initComponents();
     }
 
@@ -25,28 +33,12 @@ public class admin extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonViewTicket = new javax.swing.JToggleButton();
-        btnEdit = new javax.swing.JToggleButton();
-        jButton1 = new javax.swing.JButton();
+        btnAddEmp = new javax.swing.JButton();
 
-        buttonViewTicket.setText("View Ticket");
-        buttonViewTicket.addActionListener(new java.awt.event.ActionListener() {
+        btnAddEmp.setText("Add Employee");
+        btnAddEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonViewTicketActionPerformed(evt);
-            }
-        });
-
-        btnEdit.setText("Edit Ticket");
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Add Employee");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAddEmpActionPerformed(evt);
             }
         });
 
@@ -54,56 +46,25 @@ public class admin extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(btnEdit))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(157, 157, 157)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(buttonViewTicket))))
-                .addContainerGap(142, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(151, Short.MAX_VALUE)
+                .addComponent(btnAddEmp)
+                .addGap(148, 148, 148))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(110, Short.MAX_VALUE)
-                .addComponent(btnEdit)
-                .addGap(43, 43, 43)
-                .addComponent(buttonViewTicket)
-                .addGap(45, 45, 45)
-                .addComponent(jButton1)
-                .addGap(33, 33, 33))
+                .addContainerGap(189, Short.MAX_VALUE)
+                .addComponent(btnAddEmp)
+                .addGap(88, 88, 88))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonViewTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonViewTicketActionPerformed
-
-        // TODO add your handling code here:
-        buttonViewTicket.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                vframe.setVisible (true);
-
-            }
-        });
-
-    }//GEN-LAST:event_buttonViewTicketActionPerformed
-
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEditActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnAddEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEmpActionPerformed
+       eframe.setVisible(true);
+    }//GEN-LAST:event_btnAddEmpActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton btnEdit;
-    private javax.swing.JToggleButton buttonViewTicket;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAddEmp;
     // End of variables declaration//GEN-END:variables
 }

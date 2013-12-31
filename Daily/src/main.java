@@ -20,6 +20,7 @@ public class main extends javax.swing.JFrame {
      */
 JFrame pframe = new JFrame ("Phone Call");
    JFrame vframe = new JFrame ("View Tickets");
+   JFrame aframe = new JFrame ("Admin Console");
     public main() {
        
          
@@ -30,6 +31,10 @@ JFrame pframe = new JFrame ("Phone Call");
             vframe.setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);
             vframe.getContentPane().add (new viewTicket());
             vframe.pack();
+            
+            aframe.setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);
+            aframe.getContentPane().add (new admin());
+            aframe.pack();
              initComponents();
     }  
     /**
@@ -68,6 +73,11 @@ JFrame pframe = new JFrame ("Phone Call");
         });
 
         btnAdmin.setText("ADMIN");
+        btnAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,6 +146,10 @@ JFrame pframe = new JFrame ("Phone Call");
     });
         
     }//GEN-LAST:event_buttonViewTicketActionPerformed
+
+    private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
+        aframe.setVisible(true);
+    }//GEN-LAST:event_btnAdminActionPerformed
 
     
     /**
