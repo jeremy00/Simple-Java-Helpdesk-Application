@@ -20,7 +20,7 @@ public class main extends javax.swing.JFrame {
      */
 JFrame pframe = new JFrame ("Phone Call");
 JFrame vframe = new JFrame ("View Tickets");
-
+JFrame eframe = new JFrame ("Employee Add/Del");
     public main() {
        
          
@@ -31,6 +31,10 @@ JFrame vframe = new JFrame ("View Tickets");
             vframe.setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);
             vframe.getContentPane().add (new viewTicket());
             vframe.pack();
+            
+            eframe.setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);
+            eframe.getContentPane().add (new pnlAdmin());
+            eframe.pack();
             
              initComponents();
     }  
@@ -47,7 +51,6 @@ JFrame vframe = new JFrame ("View Tickets");
         buttonInfo = new javax.swing.JButton();
         mainLogo = new javax.swing.JLabel();
         buttonViewTicket = new javax.swing.JToggleButton();
-        btnAdmin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,7 +61,12 @@ JFrame vframe = new JFrame ("View Tickets");
             }
         });
 
-        buttonInfo.setText("Info");
+        buttonInfo.setText("Employees");
+        buttonInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonInfoActionPerformed(evt);
+            }
+        });
 
         mainLogo.setText("Helpdesk");
 
@@ -66,13 +74,6 @@ JFrame vframe = new JFrame ("View Tickets");
         buttonViewTicket.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonViewTicketActionPerformed(evt);
-            }
-        });
-
-        btnAdmin.setText("ADMIN");
-        btnAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdminActionPerformed(evt);
             }
         });
 
@@ -87,14 +88,12 @@ JFrame vframe = new JFrame ("View Tickets");
                         .addComponent(mainLogo))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(151, 151, 151)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAdmin)
-                            .addComponent(buttonViewTicket))))
+                        .addComponent(buttonViewTicket)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addComponent(buttonPhoneCall)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                 .addComponent(buttonInfo)
                 .addGap(77, 77, 77))
         );
@@ -109,9 +108,7 @@ JFrame vframe = new JFrame ("View Tickets");
                     .addComponent(buttonInfo))
                 .addGap(44, 44, 44)
                 .addComponent(buttonViewTicket)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
-                .addComponent(btnAdmin)
-                .addGap(30, 30, 30))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
 
         pack();
@@ -144,9 +141,9 @@ JFrame vframe = new JFrame ("View Tickets");
         
     }//GEN-LAST:event_buttonViewTicketActionPerformed
 
-    private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
-//        aframe.setVisible(true);
-    }//GEN-LAST:event_btnAdminActionPerformed
+    private void buttonInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInfoActionPerformed
+         eframe.setVisible (true);
+    }//GEN-LAST:event_buttonInfoActionPerformed
 
     
     /**
@@ -187,7 +184,6 @@ JFrame vframe = new JFrame ("View Tickets");
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdmin;
     private javax.swing.JButton buttonInfo;
     private javax.swing.JButton buttonPhoneCall;
     private javax.swing.JToggleButton buttonViewTicket;

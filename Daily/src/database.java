@@ -23,6 +23,8 @@ public class database {
     Statement viewstmt;
     ResultSet rowrs;
     Statement rowstmt;
+    ResultSet emprs;
+    Statement empstmt;
     ArrayList tickets = new ArrayList();
     phonecallTicket currentticket;
    database(){  
@@ -48,6 +50,12 @@ public class database {
          ("SELECT * FROM JEREMY.TICKET");  
            this.rowrs.beforeFirst();
            this.rowrs.next();
+           
+            this.empstmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            this.emprs= rowstmt.executeQuery             
+         ("SELECT * FROM JEREMY.EMPLOYEE");  
+           this.emprs.beforeFirst();
+           this.emprs.next();
  
            
            
@@ -258,4 +266,55 @@ public class database {
     }
     }//end removeTicket
     
+    public void addEmployee(employee emp){
+     try {
+            
+            
+            String insert ="INSERT INTO JEREMY.EMPLOYEE VALUES "
+                + "(" + (total() +1) +",'"
+                    +emp.name+"','"
+                    +emp.username+"','"
+                    +emp.password+"')";
+           
+            System.out.println(insert);
+            
+          empstmt.executeUpdate(insert);
+
+           emprs = stmt.executeQuery("SELECT * FROM JEREMY.EMPLOYEE");
+            total();
+        } catch (Exception e) {
+            System.out.println("SQL problem dbEmployee Addmployee()" + e);
+        }
+    
+    }
+    
+     public void delEmployee(String person){
+            System.out.println("Attempt to delete " + person);
+        try {
+          String insert ="DELETE FROM JEREMY.EMPLOYEE WHERE NAME='" + person+"'"; 
+          stmt.executeUpdate(insert);
+         
+            
+        } catch (Exception e) {
+            System.out.println(person +" may not exist" + e);
+        }
+      
+    }
+    
+      public String displayAllEmployees(){
+          String p = " ";
+      
+   try {
+      
+            emprs = stmt.executeQuery             
+         ("SELECT * FROM JEREMY.EMPLOYEE");
+          p = loopDBInfo(rs);
+        } catch (Exception e) {
+            System.out.println("SQL problem " + e);
+        } 
+  return p;
+}//end displayallemployees
+      
+      
+      
     }
