@@ -308,13 +308,32 @@ public class database {
       
             emprs = stmt.executeQuery             
          ("SELECT * FROM JEREMY.EMPLOYEE");
-          p = loopDBInfo(rs);
+          p = loopDBEMPInfo(emprs);
         } catch (Exception e) {
             System.out.println("SQL problem " + e);
         } 
   return p;
 }//end displayallemployees
+      public String loopDBEMPInfo(ResultSet rs){
+      String p = "     USERNAME    |    NAME     \n";
+          
       
+      try{
+      while (rs.next()) {
+        
+        String username = rs.getString("USERNAME");
+        String name = rs.getString("NAME");
+         String space = "                           ";   
+        
+          System.out.println(space.substring(0, 15));
+         p = p + ("        "+username + space.substring(0,space.length()-(username.length()*2)) + name + "\n");        
+          
+        }
+      } catch (Exception e) {
+            System.out.println("SQL problem " + e);
+ 
+  } return p;
+  }//end loopDBInfo
       
       
     }

@@ -8,12 +8,13 @@
  * @author mayj
  */
 public class pnlAdmin extends javax.swing.JPanel {
-
+database db = new database();
     /**
      * Creates new form pnlAdmin
      */
     public pnlAdmin() {
         initComponents();
+          console.setText(db.displayAllEmployees());
     }
 
     /**
@@ -128,7 +129,7 @@ public class pnlAdmin extends javax.swing.JPanel {
 
     private void btnSubmitAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitAddActionPerformed
       
-         database db = new database();
+         
         System.out.println("The total is " + db.total());
         employee emp = new employee(db.total(),
                                     txtAddName.getText(), 
@@ -142,6 +143,7 @@ public class pnlAdmin extends javax.swing.JPanel {
         database db = new database();
         System.out.println("deleteing employee");
         db.delEmployee(txtDeleteName.getText());
+        console.setText(db.displayAllEmployees());
     }//GEN-LAST:event_btnSubmitDeleteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
