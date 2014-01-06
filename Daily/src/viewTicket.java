@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /*
@@ -23,9 +24,21 @@ phonecallTicket ticket;
         
         jTextArea1.setText(db.displayAllTickets());
        ticket = db.getTicket();
-        setInfo(db.getTicket());    
+        setInfo(db.getTicket());  
+       populateEmployees();
     }
     
+    public void populateEmployees() {  //retrieve employees with database call
+        System.out.println("issue");
+        ArrayList emp = db.getArrayAllEmployees();
+        System.out.println("emp size " + emp.size());
+        for (int i = 0; i < emp.size(); i++) {
+            System.out.println("POPEMP " + emp.get(i));
+            cbAssigned.addItem(emp.get(i));
+            
+        }
+        
+    }
     public void setInfo(phonecallTicket dticket){
    
          this.ticket = dticket;
@@ -84,6 +97,11 @@ phonecallTicket ticket;
         btnPrevious = new javax.swing.JButton();
         btnNext = new javax.swing.JButton();
         btnByName = new javax.swing.JButton();
+        pnlEmployee = new javax.swing.JPanel();
+        txtStatus = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        cbStatus = new javax.swing.JComboBox();
+        cbAssigned = new javax.swing.JComboBox();
 
         jLabel1.setText("View Tickets");
 
@@ -256,20 +274,63 @@ phonecallTicket ticket;
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        txtStatus.setText("Status");
+
+        jLabel3.setText("Assigned To:");
+
+        cbStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "New", "In Progress", "On Hold", "Completed" }));
+
+        cbAssigned.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
+
+        javax.swing.GroupLayout pnlEmployeeLayout = new javax.swing.GroupLayout(pnlEmployee);
+        pnlEmployee.setLayout(pnlEmployeeLayout);
+        pnlEmployeeLayout.setHorizontalGroup(
+            pnlEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEmployeeLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(pnlEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(txtStatus))
+                .addGap(18, 18, 18)
+                .addGroup(pnlEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cbStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbAssigned, 0, 87, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
+        );
+        pnlEmployeeLayout.setVerticalGroup(
+            pnlEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEmployeeLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(pnlEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtStatus)
+                    .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlEmployeeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(cbAssigned, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(113, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout panelContainerLayout = new javax.swing.GroupLayout(panelContainer);
         panelContainer.setLayout(panelContainerLayout);
         panelContainerLayout.setHorizontalGroup(
             panelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelContainerLayout.createSequentialGroup()
-                .addContainerGap(261, Short.MAX_VALUE)
+                .addContainerGap(263, Short.MAX_VALUE)
                 .addComponent(panelINFO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(264, 264, 264))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
         panelContainerLayout.setVerticalGroup(
             panelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelContainerLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(panelINFO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(panelContainerLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(pnlEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -334,7 +395,10 @@ phonecallTicket ticket;
     private javax.swing.JButton btnNext;
     private javax.swing.JButton btnPrevious;
     private javax.swing.JButton btnRow;
+    private javax.swing.JComboBox cbAssigned;
+    private javax.swing.JComboBox cbStatus;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -353,6 +417,7 @@ phonecallTicket ticket;
     private javax.swing.JLabel labelWho;
     private javax.swing.JPanel panelContainer;
     private javax.swing.JPanel panelINFO;
+    private javax.swing.JPanel pnlEmployee;
     private javax.swing.JTextPane textDate;
     private javax.swing.JTextPane textID;
     private javax.swing.JTextPane textNotes;
@@ -361,5 +426,6 @@ phonecallTicket ticket;
     private javax.swing.JTextField textRow;
     private javax.swing.JTextPane textTag;
     private javax.swing.JTextPane textWho;
+    private javax.swing.JLabel txtStatus;
     // End of variables declaration//GEN-END:variables
 }

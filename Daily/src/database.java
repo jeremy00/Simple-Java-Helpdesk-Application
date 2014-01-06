@@ -30,13 +30,15 @@ public class database {
    database(){  
 
          try {
-            
+
+             
   //Attempt connection to the database
              Class.forName("org.apache.derby.jdbc.ClientDriver");
              con = DriverManager.getConnection("jdbc:derby://localhost:1527/dial", "jeremy", "jeremy");
              stmt = con.createStatement();
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-
+           
+            
   //set put the view Result Set to be the first record in set          
             this.viewstmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             this.viewrs= viewstmt.executeQuery             
@@ -52,7 +54,7 @@ public class database {
            this.rowrs.next();
            
             this.empstmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            this.emprs= rowstmt.executeQuery             
+            this.emprs= empstmt.executeQuery             
          ("SELECT * FROM JEREMY.EMPLOYEE");  
            this.emprs.beforeFirst();
            this.emprs.next();
@@ -270,9 +272,8 @@ public class database {
      try {
             
             
-            String insert ="INSERT INTO JEREMY.EMPLOYEE VALUES "
-                + "(" + (total() +1) +",'"
-                    +emp.name+"','"
+            String insert ="INSERT INTO JEREMY.EMPLOYEE (NAME, USERNAME, PASSWORD) VALUES "
+                + "('"+emp.name+"','"
                     +emp.username+"','"
                     +emp.password+"')";
            
@@ -291,8 +292,8 @@ public class database {
      public void delEmployee(String person){
             System.out.println("Attempt to delete " + person);
         try {
-          String insert ="DELETE FROM JEREMY.EMPLOYEE WHERE NAME='" + person+"'"; 
-          stmt.executeUpdate(insert);
+          String delete ="DELETE FROM JEREMY.EMPLOYEE WHERE NAME='" + person+"'"; 
+          stmt.executeUpdate(delete);
          
             
         } catch (Exception e) {
@@ -309,11 +310,39 @@ public class database {
             emprs = stmt.executeQuery             
          ("SELECT * FROM JEREMY.EMPLOYEE");
           p = loopDBEMPInfo(emprs);
+           emprs.close();
         } catch (Exception e) {
             System.out.println("SQL problem " + e);
-        } 
+        }
+  
   return p;
 }//end displayallemployees
+    
+      public ArrayList getArrayAllEmployees(){
+        
+      ArrayList employees = new ArrayList();
+          try {
+    
+          emprs.beforeFirst();
+          
+   while (emprs.next()) {
+ 
+          String name = emprs.getString("NAME");
+          employees.add(name);
+          System.out.println("testing" + name);
+                          }
+   emprs.close();
+        } catch (Exception e) {
+            System.out.println("SQL problem " + e);
+        }
+   
+  return employees;
+      
+      }
+      
+      
+      
+      
       public String loopDBEMPInfo(ResultSet rs){
       String p = "     USERNAME    |    NAME     \n";
           
