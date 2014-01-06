@@ -318,19 +318,20 @@ public class database {
   return p;
 }//end displayallemployees
     
-      public ArrayList getArrayAllEmployees(){
+      public String[] getArrayAllEmployees(){
         
-      ArrayList employees = new ArrayList();
+      String[] employees = new String[7];
           try {
     
           emprs.beforeFirst();
-          
+          int i = 0;
    while (emprs.next()) {
  
           String name = emprs.getString("NAME");
-          employees.add(name);
+          employees[i] = name;
           System.out.println("testing" + name);
-                          }
+          System.out.println("array " + employees[i]);
+                    i++;      }
    emprs.close();
         } catch (Exception e) {
             System.out.println("SQL problem " + e);

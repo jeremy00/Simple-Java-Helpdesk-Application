@@ -25,20 +25,20 @@ phonecallTicket ticket;
         jTextArea1.setText(db.displayAllTickets());
        ticket = db.getTicket();
         setInfo(db.getTicket());  
-       populateEmployees();
+      // populateEmployees();
     }
     
-    public void populateEmployees() {  //retrieve employees with database call
-        System.out.println("issue");
-        ArrayList emp = db.getArrayAllEmployees();
-        System.out.println("emp size " + emp.size());
-        for (int i = 0; i < emp.size(); i++) {
-            System.out.println("POPEMP " + emp.get(i));
-            cbAssigned.addItem(emp.get(i));
-            
-        }
-        
-    }
+//    public void populateEmployees() {  //retrieve employees with database call
+//        System.out.println("issue");
+//       //S emp = db.getArrayAllEmployees();
+//        System.out.println("emp size " + emp.size());
+//        for (int i = 0; i < emp.size(); i++) {
+//            System.out.println("POPEMP " + emp.get(i));
+//            cbAssigned.addItem(emp.get(i));
+//            
+//        }
+//        
+//    }
     public void setInfo(phonecallTicket dticket){
    
          this.ticket = dticket;
@@ -101,7 +101,7 @@ phonecallTicket ticket;
         txtStatus = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         cbStatus = new javax.swing.JComboBox();
-        cbAssigned = new javax.swing.JComboBox();
+        cbAssigned = new javax.swing.JComboBox(db.getArrayAllEmployees());
 
         jLabel1.setText("View Tickets");
 
@@ -279,8 +279,6 @@ phonecallTicket ticket;
         jLabel3.setText("Assigned To:");
 
         cbStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "New", "In Progress", "On Hold", "Completed" }));
-
-        cbAssigned.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
 
         javax.swing.GroupLayout pnlEmployeeLayout = new javax.swing.GroupLayout(pnlEmployee);
         pnlEmployee.setLayout(pnlEmployeeLayout);
