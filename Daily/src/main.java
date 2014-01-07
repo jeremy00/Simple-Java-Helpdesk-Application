@@ -21,6 +21,7 @@ public class main extends javax.swing.JFrame {
 JFrame pframe = new JFrame ("Phone Call");
 JFrame vframe = new JFrame ("View Tickets");
 JFrame eframe = new JFrame ("Employee Add/Del");
+viewTicket viewticket = new viewTicket();
     public main() {
        
          
@@ -29,7 +30,7 @@ JFrame eframe = new JFrame ("Employee Add/Del");
             pframe.pack();
               
             vframe.setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);
-            vframe.getContentPane().add (new viewTicket());
+            vframe.getContentPane().add (viewticket);
             vframe.pack();
             
             eframe.setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);
@@ -133,7 +134,7 @@ JFrame eframe = new JFrame ("Employee Add/Del");
          buttonViewTicket.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-                
+            viewticket.updateConsole();
             vframe.setVisible (true);
             
         }

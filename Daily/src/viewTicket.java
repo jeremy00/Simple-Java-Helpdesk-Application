@@ -22,7 +22,7 @@ phonecallTicket ticket;
         changeWindow();
        
         
-        console.setText(db.displayAllTickets());
+        updateConsole();
        ticket = db.getTicket();
         setInfo(db.getTicket());  
       // populateEmployees();
@@ -52,6 +52,8 @@ phonecallTicket ticket;
     txtStatus.setText(ticket.status);
    
     }
+    
+    public void updateConsole(){console.setText(db.displayAllTickets());}
     //http//www.homeandlearn.co.uk/java/database_scrolling_buttons.html
     
     public void changeWindow(){
@@ -110,12 +112,6 @@ phonecallTicket ticket;
         jScrollPane10 = new javax.swing.JScrollPane();
         txtAssignedTo = new javax.swing.JTextPane();
         btnSubmitStatus = new javax.swing.JButton();
-
-        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                formMouseMoved(evt);
-            }
-        });
 
         jLabel1.setText("View Tickets");
 
@@ -422,11 +418,11 @@ phonecallTicket ticket;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnByIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnByIDActionPerformed
-        console.setText(db.displayAllTickets());
+       console.setText(db.displayNameTickets());
     }//GEN-LAST:event_btnByIDActionPerformed
 
     private void btnByNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnByNameActionPerformed
-        console.setText(db.displayNameTickets());
+        updateConsole();
     }//GEN-LAST:event_btnByNameActionPerformed
 
     private void btnRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRowActionPerformed
@@ -464,12 +460,8 @@ phonecallTicket ticket;
       // db.updateEmployeeStatus(ticket.id, cbStatus.getSelectedIndex());
         db.updateEmployeeStatus(ticket.id, cbStatus.getSelectedIndex());
         setInfo(ticket);
-         console.setText(db.displayAllTickets());
+        updateConsole();
     }//GEN-LAST:event_btnSubmitStatusActionPerformed
-
-    private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
-      console.setText(db.displayAllTickets());
-    }//GEN-LAST:event_formMouseMoved
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnByID;
