@@ -191,7 +191,8 @@ public class phoneCall extends javax.swing.JPanel {
                                                      tbCompTag.getText(),
                                                      getDateLong(),
                                                      tbProblem.getText(), 
-                                                     tbNotes.getText() );
+                                                     tbNotes.getText() 
+                                                     );
       database db = new database();
       db.addTicket(ticket);
         System.out.println(tbNotes.getText());

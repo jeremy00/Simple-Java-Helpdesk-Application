@@ -126,15 +126,19 @@ public class database {
     public void addTicket(phonecallTicket ticket){
         try {
             
-            
-            String insert ="INSERT INTO JEREMY.TICKET VALUES "
+            System.out.println("Number of tickets? " + (total()+1));
+            String insert ="INSERT INTO JEREMY.TICKET "
+                    + "(ID,NAME,PHONE,TAG,DATE,PROBLEM,NOTES,STATUS) "
+                    + "VALUES "
+                    
                 + "(" + (total() +1) +",'"
                     +ticket.who+"','"
                     +ticket.phone+"','"
                     +ticket.tag+"',' "
                     +ticket.date+"',' "
                     +ticket.problem+"',' "
-                    +ticket.notes+"')";
+                    +ticket.notes+"',' "
+                    +"NEW"+"')";
            
             System.out.println(insert);
             
@@ -334,8 +338,7 @@ public class database {
  
           String name = emprs.getString("NAME");
           employees[i] = name;
-          System.out.println("testing" + name);
-          System.out.println("array " + employees[i]);
+          
                     i++;      }
    emprs.close();
         } catch (Exception e) {
