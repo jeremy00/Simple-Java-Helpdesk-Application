@@ -18,7 +18,7 @@ public class database {
     
     Connection con;
     Statement stmt;
-  ResultSet rs;
+     ResultSet rs;
     ResultSet viewrs;
     Statement viewstmt;
     ResultSet rowrs;
@@ -27,6 +27,9 @@ public class database {
     Statement empstmt;
     ArrayList tickets = new ArrayList();
     phonecallTicket currentticket;
+    
+    public enum Status{ NEW, IN_PROGRESS, ON_HOLD, COMPLETED }
+    
    database(){  
 
          try {
@@ -65,7 +68,7 @@ public class database {
        currentticket =makeTicket(viewrs.getInt("ID"), viewrs.getString("NAME"),
                                  viewrs.getString("PHONE"),viewrs.getString("TAG"), 
                                  viewrs.getString("DATE"), viewrs.getString("PROBLEM"),
-                                 viewrs.getString("NOTES"));
+                                 viewrs.getString("NOTES"), viewrs.getString("STATUS"));
 
         } catch (Exception e) {
             System.out.println("SQL constructor problem " + e);
@@ -90,8 +93,8 @@ public class database {
         String date = rowrs.getString("DATE");
         String prob = rowrs.getString("PROBLEM");
         String notes = rowrs.getString("NOTES");
-              
-       currentticket = makeTicket(id_col, first_name, phone, tag, date, prob, notes);
+        String status = rowrs.getString("STATUS");
+       currentticket = makeTicket(id_col, first_name, phone, tag, date, prob, notes, status);
        }//else
    } catch (Exception e){
        System.out.println("SQL problem at getRow()");}
@@ -148,9 +151,9 @@ public class database {
  
  Makes a ticket with an id number and returns it. That's it.
  */
-    public phonecallTicket makeTicket(int id,  String who,  String phone,String tag, String date,String problem, String notes){
+    public phonecallTicket makeTicket(int id,  String who,  String phone,String tag, String date,String problem, String notes, String status){
         
-        phonecallTicket ticket = new phonecallTicket(id,  who,  phone, tag, date, problem, notes);
+        phonecallTicket ticket = new phonecallTicket(id,  who,  phone, tag, date, problem, notes, status);
     currentticket = ticket;
         return ticket;
     }
@@ -177,8 +180,9 @@ public class database {
         String date = viewrs.getString("DATE");
         String prob = viewrs.getString("PROBLEM");
         String notes = viewrs.getString("NOTES");
-              
-       ticket = makeTicket(id_col, first_name, phone, tag, date, prob, notes);
+        String status = viewrs.getString("STATUS");
+        
+       ticket = makeTicket(id_col, first_name, phone, tag, date, prob, notes, status);
        }
         } catch (Exception e) {System.out.println("SQL nextTicket() problem " + e);}
     
@@ -200,8 +204,9 @@ public class database {
          String date = viewrs.getString("DATE");
         String prob = viewrs.getString("PROBLEM");
         String notes = viewrs.getString("NOTES");
+        String status = viewrs.getString("STATUS");
         
-       ticket = makeTicket(id_col, first_name, phone, tag, date, prob, notes);
+       ticket = makeTicket(id_col, first_name, phone, tag, date, prob, notes, status);
             }
         } catch (Exception e) {System.out.println("SQL nextTicket() problem " + e);}
     
@@ -248,11 +253,11 @@ public class database {
         int id_col = rs.getInt("ID");
         String first_name = rs.getString("NAME");
         String phone = rs.getString("PHONE");
-        String tag = rs.getString("TAG");
+        String status = rs.getString("STATUS");
         String prob = rs.getString("PROBLEM");
-        String notes = rs.getString("NOTES");
+       
         
-         p = p + (id_col + " " + first_name + " " + phone + " " + prob + "\n");        
+         p = p + (id_col + " " + first_name + " " + phone + " "+ status + " "+ prob + "\n");        
            // System.out.println(p);
         }
       } catch (Exception e) {
@@ -365,5 +370,28 @@ public class database {
   } return p;
   }//end loopDBInfo
       
+     public void updateEmployeeStatus(int ID, int numstatus){
+  try{
+       String status = "";
       
+      
+       
+       switch(numstatus){
+           case 0: status = Status.NEW.toString(); break;
+           case 1: status = Status.IN_PROGRESS.toString(); break;
+           case 2: status = Status.ON_HOLD.toString(); break;
+           case 3: status = Status.COMPLETED.toString(); break;
+           default: status = Status.NEW.toString();break;
+       }
+        String update = "UPDATE JEREMY.TICKET SET STATUS='" +  status + "' WHERE ID=" + ID;
+      System.out.println(status);
+      System.out.println(update); 
+      currentticket.status=status;
+       stmt.executeUpdate(update);
+//    viewrs = viewstmt. ("UPDATE JEREMY.TICKET SET STATUS='" +  status + "' WHERE ID=" + ID);
+  }catch(Exception e ){
+      System.out.println("sql issue in updateEmployeeStatus " + e);}
+        
+     
+     }
     }
