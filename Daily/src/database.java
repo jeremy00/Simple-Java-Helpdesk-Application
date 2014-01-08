@@ -14,6 +14,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+/**
+ *
+ * @author mayj
+ */
 public class database {
     
     Connection con;
@@ -28,34 +32,54 @@ public class database {
     ArrayList tickets = new ArrayList();
     phonecallTicket currentticket;
     
-    public enum Status{ NEW, IN_PROGRESS, ON_HOLD, COMPLETED }
+    /**
+     *
+     */
+    public enum Status{
+        /**
+         *
+         */
+        NEW,
+        /**
+         *
+         */
+        IN_PROGRESS,
+        /**
+         *
+         */
+        ON_HOLD,
+        /**
+         *
+         */
+        COMPLETED }
     
    database(){  
 
          try {
 
              
-  //Attempt connection to the database
+ //Attempt connection to the database
              Class.forName("org.apache.derby.jdbc.ClientDriver");
              con = DriverManager.getConnection("jdbc:derby://localhost:1527/dial", "jeremy", "jeremy");
              stmt = con.createStatement();
             Class.forName("org.apache.derby.jdbc.ClientDriver");
            
             
-  //set put the view Result Set to be the first record in set          
+//set put the view Result Set to be the first record in set   (next/prev/console?)       
             this.viewstmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             this.viewrs= viewstmt.executeQuery             
-         ("SELECT * FROM JEREMY.TICKET");  
+         ("SELECT * FROM JEREMY.TICKET ORDER BY ID");  
            this.viewrs.beforeFirst();
            this.viewrs.next();
  
-//Set up the row Result Set to be able to go to any row you want
+//Set up the row Result Set to be able to go to any row you want (Row function)
            this.rowstmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             this.rowrs= rowstmt.executeQuery             
-         ("SELECT * FROM JEREMY.TICKET");  
+         ("SELECT * FROM JEREMY.TICKET ORDER BY ID");  
            this.rowrs.beforeFirst();
            this.rowrs.next();
            
+//RS and stmt for the employee table.           
             this.empstmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             this.emprs= empstmt.executeQuery             
          ("SELECT * FROM JEREMY.EMPLOYEE");  
@@ -76,12 +100,23 @@ public class database {
         
   }// end of contructor
    
-   public phonecallTicket getTicket(){
+    /**
+     * gives the current phonecallTicket object in the database
+     * @return phonecallTicket 
+     */
+    public phonecallTicket getTicket(){
    return currentticket;
    }
  
-   public phonecallTicket getRow(int row){
-       System.out.println("ROW IS!!! " + row );
+    /**
+     * Takes in a row, uses ROWRS to query which db item is in which row
+     * and then it sets that item as the current displayed item.
+     * @param row
+     * @return phonecallTicket object
+     */
+    public phonecallTicket getRow(int row){
+       
+        System.out.println("ROW IS!!! " + row );
        try{
        if(row > total() || row < 0)
            System.out.println("invalid row");
@@ -100,14 +135,15 @@ public class database {
        System.out.println("SQL problem at getRow()");}
    return currentticket;
    }
-    /*
-     Return number of total rows, PRINTS total rows also
+   
+    /**
+     * Returns total number of rows in table with STMT and RS
+     * @return int rows
      */
     public int total(){
         int rows = 0;
        
         try {
-            stmt = con.createStatement();
             rs = stmt.executeQuery             
          ("SELECT * FROM JEREMY.TICKET");
           while (rs.next()) {rows++;}
@@ -119,9 +155,26 @@ public class database {
       }
     
     
-    /*
-     Add ticket to DB resem the ticket structure.
-     * It will aso return the total size with total method
+    
+    /**
+     *Used by main to update view rs to show current selection after an adddition
+     */
+    public void updateViewRs(){
+    try{
+     this.viewrs= viewstmt.executeQuery             
+         ("SELECT * FROM JEREMY.TICKET ORDER BY ID"); 
+//      viewrs.beforeFirst();
+//           viewrs.next();
+    }catch (Exception e ){
+        System.out.println("sql exception at updateViewRs" + e);
+    }
+    }
+    
+    
+    /**
+     * takes in a phonecallTicket obj, puts it in a sql statement
+     * and then executes the sql statement to add a RECORD of TICKET in to TICKET DB
+     * @param ticket
      */
     public void addTicket(phonecallTicket ticket){
         try {
@@ -137,13 +190,13 @@ public class database {
                     +ticket.tag+"',' "
                     +ticket.date+"',' "
                     +ticket.problem+"',' "
-                    +ticket.notes+"',' "
+                    +ticket.notes+"','"
                     +"NEW"+"')";
            
             System.out.println(insert);
             
           stmt.executeUpdate(insert);
-
+    
            rs = stmt.executeQuery("SELECT * FROM JEREMY.TICKET");
             total();
         } catch (Exception e) {
@@ -155,6 +208,18 @@ public class database {
  
  Makes a ticket with an id number and returns it. That's it.
  */
+    /**
+     *Helper method to create a ticket, this .java uses it
+     * @param id
+     * @param who
+     * @param phone
+     * @param tag
+     * @param date
+     * @param problem
+     * @param notes
+     * @param status
+     * @return
+     */
     public phonecallTicket makeTicket(int id,  String who,  String phone,String tag, String date,String problem, String notes, String status){
         
         phonecallTicket ticket = new phonecallTicket(id,  who,  phone, tag, date, problem, notes, status);
@@ -162,14 +227,15 @@ public class database {
         return ticket;
     }
     
-//    public phonecallTicket getCurrentTicket(){
-//    
-//    
-//    }
     
     
-    /*
-     moves to next record, puts new info in a new ticket obj.
+    
+    /**
+     * used in ViewTicket to do next function. Takes in/returns a ticket
+     * so that if there is no next ticket, it will return same object
+     * uses VIEWRS to query next record in DB
+     * @param ticket
+     * @return
      */
     public phonecallTicket nextTicket(phonecallTicket ticket){
         
@@ -194,7 +260,14 @@ public class database {
     
     }
     
-     public phonecallTicket previousTicket(phonecallTicket ticket){
+     /**
+     * used in ViewTicket to do previous function. Takes in/returns a ticket
+     * so that if there is no previous ticket, it will return same object
+     * uses VIEWRS to query next record in DB
+     * @param ticket
+     * @return
+     */
+    public phonecallTicket previousTicket(phonecallTicket ticket){
         
         
         try {
@@ -205,7 +278,7 @@ public class database {
         String first_name = viewrs.getString("NAME");
         String phone = viewrs.getString("PHONE");
         String tag = viewrs.getString("TAG");
-         String date = viewrs.getString("DATE");
+        String date = viewrs.getString("DATE");
         String prob = viewrs.getString("PROBLEM");
         String notes = viewrs.getString("NOTES");
         String status = viewrs.getString("STATUS");
@@ -217,17 +290,17 @@ public class database {
         return ticket;
     
     }
-/*
- A memory intensive search of the SQL data returned with an arraylist of ticket
- * objects
- @return A arraylist prepared from the complete set of data
- */
-   public String displayAllTickets(){
+
+    /** 
+     * Displays all tickets sorted by ID with a string. Uses LoopDBInfo to consolidate process
+     * @return a string with all of the ticket records
+     */
+    public String displayAllTickets(){
   String p = " ";
    try {
       
             rs = stmt.executeQuery             
-         ("SELECT * FROM JEREMY.TICKET");
+         ("SELECT * FROM JEREMY.TICKET ORDER BY ID");
           p = loopDBInfo(rs);
         } catch (Exception e) {
             System.out.println("SQL problem " + e);
@@ -235,7 +308,11 @@ public class database {
   return p;
   
   }
-  public String displayNameTickets(){
+    /**
+     * Displays all tickets sorted by Name with a string. Uses LoopDBInfo to consolidate process
+     * @return a string with all of the ticket records
+     */
+    public String displayNameTickets(){
   String p = " ";
    try {
       
@@ -250,7 +327,13 @@ public class database {
   
   }//end displayNameTickets
   
-  public String loopDBInfo(ResultSet rs){
+    /**
+     * Takes in the standard rs and sifts through the set
+     * To get all of the information and puts it in a string.
+     * @param rs
+     * @return a string with ID/NAME/PHONE/STATUS/PROBLEM info
+     */
+    public String loopDBInfo(ResultSet rs){
       String p = "";
       try{
       while (rs.next()) {
@@ -271,12 +354,21 @@ public class database {
   }//end loopDBInfo
 
 
+    /**
+     * Not really used right now.
+     * @param num
+     */
     public void removeTicket(int num){
     if (!tickets.isEmpty() && num < tickets.size() && num > 0){
        tickets.remove(num);
     }
     }//end removeTicket
     
+    /**
+     *Adds an employee with the use of employee object
+     * Uses empStmt/emprs to insert and updates before it leaves
+     * @param emp
+     */
     public void addEmployee(employee emp){
      try {
             
@@ -298,7 +390,11 @@ public class database {
     
     }
     
-     public void delEmployee(String person){
+     /**
+     * Takes a name string from user, goes into employee DB and deletes the person
+     * @param person (User supplies this)
+     */
+    public void delEmployee(String person){
             System.out.println("Attempt to delete " + person);
         try {
           String delete ="DELETE FROM JEREMY.EMPLOYEE WHERE NAME='" + person+"'"; 
@@ -311,7 +407,11 @@ public class database {
       
     }
     
-      public String displayAllEmployees(){
+      /**
+     * Displays all employees, uses loopDBEMPinfo to sort info
+     * @return a String with all the employees
+     */
+    public String displayAllEmployees(){
           String p = " ";
       
    try {
@@ -327,7 +427,11 @@ public class database {
   return p;
 }//end displayallemployees
     
-      public String[] getArrayAllEmployees(){
+      /**
+     *
+     * @return
+     */
+    public String[] getArrayAllEmployees(){
         
       String[] employees = new String[7];
           try {
@@ -352,7 +456,12 @@ public class database {
       
       
       
-      public String loopDBEMPInfo(ResultSet rs){
+      /**
+     *
+     * @param rs
+     * @return
+     */
+    public String loopDBEMPInfo(ResultSet rs){
       String p = "     USERNAME    |    NAME     \n";
           
       
@@ -373,7 +482,12 @@ public class database {
   } return p;
   }//end loopDBInfo
       
-     public void updateEmployeeStatus(int ID, int numstatus){
+     /**
+     *
+     * @param ID
+     * @param numstatus
+     */
+    public void updateEmployeeStatus(int ID, int numstatus){
   try{
        String status = "";
       

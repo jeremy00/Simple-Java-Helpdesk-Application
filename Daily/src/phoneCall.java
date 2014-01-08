@@ -20,13 +20,21 @@ public class phoneCall extends javax.swing.JPanel {
         jLabel8.setText(getDateLong());
     }
     
+    /**
+     *
+     * @return
+     */
     public String getDateLong(){
     Date hi = new Date();
         //Day, Date, and time
         return hi.toString().substring(0, 19);
             
     }
-     public String getDateShort(){
+     /**
+     *
+     * @return
+     */
+    public String getDateShort(){
     Date hi = new Date();
         //Day, Date, and time
         
@@ -34,7 +42,10 @@ public class phoneCall extends javax.swing.JPanel {
       return hi.toString().substring(11, 19);
     }
      
-        public void dbAddTicket(){
+        /**
+     *
+     */
+    public void dbAddTicket(){
         
         }
         

@@ -22,6 +22,9 @@ JFrame pframe = new JFrame ("Phone Call");
 JFrame vframe = new JFrame ("View Tickets");
 JFrame eframe = new JFrame ("Employee Add/Del");
 viewTicket viewticket = new viewTicket();
+    /**
+     *
+     */
     public main() {
        
          
@@ -134,7 +137,8 @@ viewTicket viewticket = new viewTicket();
          buttonViewTicket.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            viewticket.updateConsole();
+            viewticket.db.updateViewRs();//update view rs so next/prev is accurate
+            viewticket.updateConsole();//update console in case something else is added
             vframe.setVisible (true);
             
         }

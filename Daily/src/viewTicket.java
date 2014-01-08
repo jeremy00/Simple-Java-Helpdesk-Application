@@ -22,23 +22,14 @@ phonecallTicket ticket;
         changeWindow();
        
         
-        updateConsole();
+       
        ticket = db.getTicket();
         setInfo(db.getTicket());  
+        updateConsole();
+        db.updateViewRs();
       // populateEmployees();
     }
     
-//    public void populateEmployees() {  //retrieve employees with database call
-//        System.out.println("issue");
-//       //S emp = db.getArrayAllEmployees();
-//        System.out.println("emp size " + emp.size());
-//        for (int i = 0; i < emp.size(); i++) {
-//            System.out.println("POPEMP " + emp.get(i));
-//            cbAssigned.addItem(emp.get(i));
-//            
-//        }
-//        
-//    }
     public void setInfo(phonecallTicket dticket){
    
          this.ticket = dticket;
@@ -53,11 +44,16 @@ phonecallTicket ticket;
    
     }
     
-    public void updateConsole(){console.setText(db.displayAllTickets());}
+    public void updateConsole(){
+        console.setText(db.displayAllTickets());
+    
+   
+    }
     //http//www.homeandlearn.co.uk/java/database_scrolling_buttons.html
     
     public void changeWindow(){
       }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -418,11 +414,11 @@ phonecallTicket ticket;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnByIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnByIDActionPerformed
-       console.setText(db.displayNameTickets());
+       console.setText(db.displayAllTickets());
     }//GEN-LAST:event_btnByIDActionPerformed
 
     private void btnByNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnByNameActionPerformed
-        updateConsole();
+        console.setText(db.displayNameTickets());
     }//GEN-LAST:event_btnByNameActionPerformed
 
     private void btnRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRowActionPerformed
@@ -437,7 +433,10 @@ phonecallTicket ticket;
     }//GEN-LAST:event_btnRowActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
+      
+        System.out.println(ticket.id + " " + ticket.who);
         setInfo(db.nextTicket(ticket));
+        System.out.println("after "+ticket.id);
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void btnPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousActionPerformed
@@ -460,7 +459,7 @@ phonecallTicket ticket;
       // db.updateEmployeeStatus(ticket.id, cbStatus.getSelectedIndex());
         db.updateEmployeeStatus(ticket.id, cbStatus.getSelectedIndex());
         setInfo(ticket);
-        updateConsole();
+        
     }//GEN-LAST:event_btnSubmitStatusActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
